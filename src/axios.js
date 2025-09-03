@@ -1,32 +1,10 @@
 import axios from 'axios';
 
-// Determine the backend URL based on the current environment
-const getBackendURL = () => {
-  const hostname = window.location.hostname;
-  const isDevelopment = import.meta.env.DEV || hostname === 'localhost';
-  
-  // Local development
-  if (isDevelopment) {
-    return 'http://localhost:8000';
-  }
-  
-  // Vercel deployment (your-app-name.vercel.app)
-  if (hostname.includes('vercel.app')) {
-    // Railway backend URL for production
-    return 'https://evoka-backend-production.up.railway.app';
-  }
-  
-  // evoka.info domain
-  if (hostname === 'evoka.info' || hostname.includes('evoka.info')) {
-    return 'https://evoka.info/public';
-  }
-  
-  // Default fallback
-  return 'https://evoka.info/public';
-};
+// Check if we're in development mode
+const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost';
 
 const axiosClient = axios.create({
-  baseURL: getBackendURL(),
+  baseURL: isDevelopment ? 'http://localhost:8000' : 'https://evoka.info/public',
   withCredentials: true,
   headers: {
     'Accept': 'application/json',
@@ -34,16 +12,10 @@ const axiosClient = axios.create({
   },
 });
 
-// Add request interceptor for debugging
+// Add request interceptor for local testing
 axiosClient.interceptors.request.use(
   (config) => {
-    // Log which backend URL is being used
-    console.log('🌐 Backend URL:', getBackendURL());
-    console.log('📡 Making API call to:', config.url);
-    console.log('🔄 Updated at:', new Date().toISOString());
-    
     // If in development and no backend is running, use mock data
-    const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost';
     if (isDevelopment && config.url?.includes('api/')) {
       console.log('🚀 Development mode: Mocking API call to', config.url);
     }
