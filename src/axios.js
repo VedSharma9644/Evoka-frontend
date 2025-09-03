@@ -4,7 +4,7 @@ import axios from 'axios';
 const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost';
 
 const axiosClient = axios.create({
-  baseURL: isDevelopment ? 'http://localhost:8000' : 'https://evoka.info',
+  baseURL: isDevelopment ? 'http://localhost:8000' : 'https://evoka-backend-production.up.railway.app',
   withCredentials: true,
   headers: {
     'Accept': 'application/json',
