@@ -12,9 +12,8 @@ const getBackendURL = () => {
   
   // Vercel deployment (your-app-name.vercel.app)
   if (hostname.includes('vercel.app')) {
-    // You'll need to replace this with your actual backend URL
-    // This could be Railway, Heroku, or any other platform hosting your Laravel backend
-    return 'https://your-backend-url.railway.app'; // Replace with actual backend URL
+    // Railway backend URL for production
+    return 'https://evoka-backend-production.up.railway.app';
   }
   
   // evoka.info domain
