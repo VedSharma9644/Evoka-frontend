@@ -40,6 +40,7 @@ axiosClient.interceptors.request.use(
     // Log which backend URL is being used
     console.log('🌐 Backend URL:', getBackendURL());
     console.log('📡 Making API call to:', config.url);
+    console.log('🔄 Updated at:', new Date().toISOString());
     
     // If in development and no backend is running, use mock data
     const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost';
